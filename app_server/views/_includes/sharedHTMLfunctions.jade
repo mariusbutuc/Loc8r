@@ -1,0 +1,8 @@
+mixin outputRating(rating)
+  - for (var i = 1; i <= rating; i++)
+    span.glyphicon.glyphicon-star
+  - for (var i = rating; i < 5; i++)
+    span.glyphicon.glyphicon-star-empty
+
+mixin renderMap(lat, lng)
+  img.img-responsive.img-rounded(src='http://maps.googleapis.com/maps/api/staticmap?center=#{lat},#{lng}&zoom=17&size=400x350&sensor=false&markers=#{lat},#{lng}&scale=2')
