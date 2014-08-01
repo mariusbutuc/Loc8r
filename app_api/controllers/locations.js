@@ -131,7 +131,7 @@ module.exports.locationsReadOne = function (req, res) {
           sendJsonResponse(res, 404, err);
           return;
         }
-        sendJsonResponse(res, 200, locationsUpdateOne);
+        sendJsonResponse(res, 200, location);
       });
   } else {
     sendJsonResponse(res, 404, {
@@ -217,11 +217,13 @@ module.exports.locationsListByDistance = function (req, res) {
       },
       geoOptions = {
         spherical: true,
-        maxDistance: theEarth.getRadsFromDistance(20),
+        maxDistance: theEarth.getRadsFromDistance(req.query.maxDistance),
         num: 10
       };
 
-  if (!lng || !lat) {
+  // What if someone happened to be on the equator or on the Prime Meridian
+  // (that’s the Greenwich Mean Time line)? They should not receive an API error
+  if ((!lng && lng !== 0) || (!lat && lat !== 0)) {
     sendJsonResponse(res, 404, {
       "message": "lng and lat parameters are required"
     });
