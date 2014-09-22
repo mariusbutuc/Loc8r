@@ -1,3 +1,6 @@
+#filter {margin-left: 4px;}
+.label.label-warning {margin-right: 4px;}
+h4 a {margin-right: 10px;}
 .review {padding-bottom: 5px;}
 .panel-body.review-container {padding-top: 0;}
 .review-header {margin-bottom: 10px;}
