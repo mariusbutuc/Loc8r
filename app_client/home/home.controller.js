@@ -4,6 +4,8 @@
     .module('loc8rApp')
     .controller('homeCtrl', homeCtrl);
 
+  // Manually inject dependencies to protect against minification
+  homeCtrl.$inject = ['$scope', 'loc8rData', 'geolocation'];
   function homeCtrl ($scope, loc8rData, geolocation) {
     // use ViewModel
     var vm = this;
