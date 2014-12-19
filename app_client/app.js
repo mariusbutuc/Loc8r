@@ -1,6 +1,6 @@
 (function () {
 
-  angular.module('loc8rApp', ['ngRoute']);
+  angular.module('loc8rApp', ['ngRoute', 'ngSanitize']);
 
   function config ($routeProvider, $locationProvider) {
     $routeProvider
@@ -8,6 +8,11 @@
         templateUrl: 'home/home.view.html',
         controller: 'homeCtrl',
         controllerAs: 'vm' // ViewModel
+      })
+      .when('/about', {
+        templateUrl: '/common/views/genericText.view.html',
+        controller: 'aboutCtrl',
+        controllerAs: 'vm'
       })
       .otherwise({ redirectTo: '/' });
 
