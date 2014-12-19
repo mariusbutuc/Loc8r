@@ -17,10 +17,13 @@ app.set('view engine', 'jade');
 var appClientFiles = [
   'app_client/app.js',
   'app_client/home/home.controller.js',
-  'app_client/common/services/geolocation.service.js',
-  'app_client/common/services/loc8rData.service.js',
-  'app_client/common/filters/formatDistance.filter.js',
+  'app_client/common/directives/footerGeneric/footerGeneric.directive.js',
+  'app_client/common/directives/navigation/navigation.directive.js',
+  'app_client/common/directives/pageHeader/pageHeader.directive.js',
   'app_client/common/directives/ratingStars/ratingStars.directive.js',
+  'app_client/common/filters/formatDistance.filter.js',
+  'app_client/common/services/geolocation.service.js',
+  'app_client/common/services/loc8rData.service.js'
 ];
 var uglified = UglifyJS.minify(appClientFiles, { compress : false });
 fs.writeFile('public/angular/loc8r.min.js', uglified.code, function (err) {
@@ -47,8 +50,11 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-require('./routes')(app);
+// require('./routes')(app);
 require('./app_api/routes')(app);
+app.use(function(req, res) {
+  res.sendfile(path.join(__dirname, 'app_client', 'index.html'));
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
