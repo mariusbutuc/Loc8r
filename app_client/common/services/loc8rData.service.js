@@ -11,8 +11,13 @@
       return $http.get(query_api);
     };
 
+    var locationById = function(locationid) {
+      return $http.get('/api/locations/' + locationid);
+    };
+
     return {
-      locationByCoords : locationByCoords
+      locationByCoords : locationByCoords,
+      locationById: locationById
     };
   };
 
