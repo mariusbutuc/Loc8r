@@ -4,8 +4,8 @@
     .module('loc8rApp')
     .controller('locationDetailCtrl', locationDetailCtrl);
 
-  locationDetailCtrl.$inject = ['$routeParams', 'loc8rData'];
-  function locationDetailCtrl ($routeParams, loc8rData) {
+  locationDetailCtrl.$inject = ['$routeParams', '$modal', 'loc8rData'];
+  function locationDetailCtrl ($routeParams, $modal, loc8rData) {
     var vm = this;
     vm.locationid = $routeParams.locationid;
 
@@ -19,6 +19,25 @@
       .error(function (e) {
         console.log(e);
       });
+
+    vm.popupReviewForm = function() {
+      var modalInstance = $modal.open({
+        templateUrl: '/reviewModal/reviewModal.view.html',
+        controller: 'reviewModalCtrl as vm', // doesn’t currently support using the controllerAs option to specify it
+        resolve: {
+          locationData : function () {
+            return {
+              locationid : vm.locationid,
+              locationName : vm.data.location.name
+            };
+          }
+        }
+      });
+
+      modalInstance.result.then(function (data) {
+        vm.data.location.reviews.push(data);
+      })
+    };
   }
 
 })();

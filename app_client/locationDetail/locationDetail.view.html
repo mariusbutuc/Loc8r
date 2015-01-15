@@ -14,7 +14,6 @@
               <h2 class="panel-title">Opening hours</h2>
             </div>
             <div class="panel-body">
-              <!-- TODO: Opening times to go here -->
               <p ng-repeat="time in vm.data.location.openingTimes" ng-switch on="time.closed">
                 {{ time.days }}:
                 <span class="opening-times" ng-switch-when="true">closed</span>
@@ -55,7 +54,7 @@
         <div class="col-xs-12">
           <div class="panel panel-primary review-panel">
             <div class="panel-heading">
-              <a class="btn btn-default btn-xs pull-right" href="">Add review</a>
+              <a class="btn btn-default btn-xs pull-right" ng-click="vm.popupReviewForm()">Add review</a>
               <h2 class="panel-title">Customer reviews</h2>
             </div>
             <div class="panel-body review-container">
